@@ -389,12 +389,12 @@ class CASClient(object):
         return url
 
     def _get_proxy_validate_url(self, ticket):
-        template = '{validate_url}{auth_prefix}/proxy?'
+        template = '{validate_url}{auth_prefix}/proxyValidate?'
         template += 'ticket={ticket}&service={proxy_callback}'
         url = template.format(
             auth_prefix=self.auth_prefix,
             proxy_callback=self.proxy_callback,
-            validate=self.validate_url,
+            validate_url=self.validate_url,
             ticket=ticket,
             )
         return url
@@ -409,7 +409,7 @@ class CASClient(object):
             ticket=ticket,
             )
         if self.proxy_url:
-            url = '{url}&pgtUrl={proxy_url}'.format(url, self.proxy_url)
+            url = f'{url}&pgtUrl={self.proxy_url}'
         return url
 
     def _perform_cas_call(self, url, ticket, headers=None):
